@@ -16,8 +16,6 @@ title: java多线程
 
 ## 2.实现Rannable接口
 
-***
-
 ### 大抵与Thread相同
 
 * 既也是重写run方法  
