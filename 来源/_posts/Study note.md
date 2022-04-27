@@ -11,7 +11,7 @@ title: VPS信息记录
 * 1.需要继承Thread类重写run方法
 
 * 2.在Main方法中需要调用start();方法才能与main方法同时进行
-
+<!--more-->
 ***
 
 ## 2.实现Rannable接口
