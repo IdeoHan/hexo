@@ -1,5 +1,5 @@
 ---
-title: java多线程
+title: Java多线程
 ---
 
 ## JAVA多线程
@@ -15,6 +15,8 @@ title: java多线程
 ***
 
 ## 2.实现Rannable接口
+
+***
 
 ### 大抵与Thread相同
 
@@ -54,7 +56,7 @@ title: java多线程
 
 * 多个参数也可以去掉参数类型,如果要去掉就要全部去掉,必须加括号
 
-````java
+```java
         public static void main(String[] args) {
         Ilove love =null;
                 //表示简化
@@ -81,7 +83,7 @@ title: java多线程
         interface Ilove{
         void love(int a ,int b);
         }
-````
+```
 
 ## 线程五大状态
 
@@ -118,7 +120,7 @@ title: java多线程
 1. 建议线程正常停止,--->利用次数,不建议死循环
 2. 不要使用stop等被过时或jdk不建议使用的方法
 
-````java
+```java
         public class TestStop implements Runnable{
        //设置一个标志位
        private  boolean flag = true;
@@ -149,7 +151,7 @@ title: java多线程
             }
           }
         }
-````
+```
 
 ***
 
@@ -177,7 +179,7 @@ title: java多线程
   
 * 让CPU重新调度,礼让不一定成功 看CPU的心情
 
-````java
+```java
       public class StudyYield{
 
        public static void main(String[] args) {
@@ -196,7 +198,7 @@ title: java多线程
            System.out.println(Thread.currentThread().getName()+"线程停止执行");
             }
         }
-````
+```
 
 ***
 
@@ -206,7 +208,7 @@ title: java多线程
 
 * 可以想象为插队
 
-````java
+```java
         public class TestJoin implements Runnable{
             @Override
             public void run() {
@@ -228,7 +230,7 @@ title: java多线程
                 }
             }
         }
-````
+```
 
 ***
 
@@ -258,7 +260,7 @@ title: java多线程
   
    已退出的线程处于此状态。
 
-````java
+```java
 public class TestState {
 
     public static void main(String[] args) {
@@ -297,7 +299,7 @@ public class TestState {
 
 }
 
-````
+```
 
 ***
 
@@ -318,7 +320,7 @@ public class TestState {
 
 * 优先级低只是意味着获得调度的概率低,并不是优先级低就一定会被晚调用,全看CPU调度执行
 
-````java
+```java
 //测试线程的优先级
 public class TestPriority {
     public static void main(String[] args) {
@@ -358,7 +360,7 @@ class MyPriority implements Runnable{
         System.out.println(Thread.currentThread().getName()+"==>"+Thread.currentThread().getPriority());
     }
 }
-````
+```
 
 ***
 
@@ -370,7 +372,7 @@ class MyPriority implements Runnable{
 
 * 虚拟机不用等守护线程执行完毕 (后台操作日志,监控内存,垃圾回收诸如此类)
 
-````java
+```java
 //上帝守护你
 public class TestDaemon {
     public static void main(String[] args) {
@@ -409,7 +411,7 @@ class You implements Runnable{
     }
 }
 
-````
+```
 
 ***
 
@@ -425,7 +427,7 @@ class You implements Runnable{
 
   1. 不安全的线程1
 
-````java
+```java
  //不安全的买票
 //线程不安全 有负数
 public class UnsafeBuytickets {
@@ -465,11 +467,11 @@ class Buytickets implements Runnable{
         System.out.println(Thread.currentThread().getName()+"拿到了===>"+ticketsnum--);
     }
 }
-````
+```
 
 1. 不安全的线程2
 
-````java
+```java
 //不安全的取钱
 //两个人去银行取钱,账户
 public class UnsafeBank {
@@ -536,11 +538,11 @@ class Drawing extends Thread{
         System.out.println(this.getName()+"手里的钱"+nowMoney);
     }
 }
-`````
+```
 
 1. 不安全的线程3
 
-````java
+```java
 
 //线程不安全的集合
 public class UnsafeList {
@@ -559,7 +561,7 @@ public class UnsafeList {
         System.out.println(list.size());
     }
 }
-````
+```
 
 ### 同步方法
 
@@ -572,7 +574,7 @@ public class UnsafeList {
 
 * 修改后的代码
 
-````java
+```java
  public class UnsafeBuytickets {
     public static void main(String[] args) {
         Buytickets b = new Buytickets();
@@ -611,11 +613,11 @@ class Buytickets implements Runnable{
         System.out.println(Thread.currentThread().getName()+"拿到了===>"+ticketsnum--);
     }
 }
-````
+```
 
 * 修改后的代码2
 
-````java
+```java
 public class UnsafeBank {
     public static void main(String[] args) {
         Account account = new Account(1000,"结婚基金");
@@ -683,11 +685,11 @@ class Drawing extends Thread{
     }
 }
 }
-````
+```
 
 * 修改后的代码3
 
-````java
+```java
 public class UnsafeList {
     public static void main(String[] args) {
         List<String> list = new ArrayList<String>();
@@ -705,7 +707,9 @@ public class UnsafeList {
         System.out.println(list.size());
     }
 }
-````
+```
+
+***
 
 ## 死锁
 
@@ -720,7 +724,7 @@ public class UnsafeList {
 
    **只要避免产生死锁中的一个或多个条件就可以避免死锁发生**
 
-````java
+```java
 //多个线程互相抱着对方需要的资源,然后形成僵持
 public class TestLock {
     public static void main(String[] args) {
@@ -786,4 +790,70 @@ class MakeUp extends Thread{
     }
 
 }
-````
+```
+
+***
+
+## Lock锁
+
+* java提供了更强大的线程同步机制--通过显示定义同步锁对象来实现同步,同步锁用Lock对象来充当.
+* **java.util.concurrent.locks.Lock**接口是控制多个线程对共享资源进行访问的工具.锁提供了对共享资源的独占访问,每次只能有一个线程对Lock对象加锁,线程开始访问共享资源之前应先获得Lock对象
+* **`ReentrantLock (可重入锁)`** 类实现了Lock,它拥有与 **`synchronized`** 相同的并发性和内存语义,在实现线程安全的控制中,比较常用的是 ReentrantLock ,可以显示加锁,释放锁
+
+```java
+//测试Lock锁
+public class TestLock {
+    public static void main(String[] args) {
+        LockTwo l = new LockTwo();
+        new Thread(l).start();
+        new Thread(l).start();
+        new Thread(l).start();
+    }
+
+}
+
+class LockTwo implements Runnable{
+
+    int ticketNums = 10;
+
+    //定义Lock锁
+    private final ReentrantLock lock = new ReentrantLock();
+
+    @Override
+    public void run() {
+        while (true){
+            try {
+                //加锁
+                lock.lock();
+                if (ticketNums > 0) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(ticketNums--);
+                }else {
+                    break;
+                }
+            }finally {
+                //解锁
+                lock.unlock();
+                //如果代码同步有异常,要将unlock()写入finally语句块
+                }
+
+        }
+    }
+}
+```
+
+***
+
+`synchronized` 与 `Lock`的对比
+
+* Lock 是显示锁(手动开启和关闭锁,**别忘记关闭锁**), synchronized 是隐式锁,出了作用域自动释放.
+* Lock只有代码块锁, synchronized 有代码块锁和方法锁.
+* 使用Lock锁,JVM将花费较少的时间来调度线程,性能更好,并且具有更好的扩展性(提供更多的子类)
+* 优先使用顺序:  
+  **Lock > 同步代码块(已经进入方法体,分配了相应资源) > 同步方法(在方法体之外)**
+
+***  
